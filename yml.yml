@@ -1,0 +1,24 @@
+
+---
+- name: Deploy Node.js application
+  hosts: webservers
+  become: true
+  vars:
+    app_name: your-app-name
+    app_port: 3000
+  tasks:
+    - name: Copy application files
+      copy:
+        src: /var/lib/jenkins/workspace/question3
+        dest: /var/www/{{ app_name }}
+      become: true
+
+    - name: Install Node.js dependencies
+      command: npm install --prefix /var/www/{{ app_name }}
+      become: true
+
+    - name: Start application
+      command: pm2 start /var/www/{{ app_name }}/src/index.js --name {{ app_name }} --watch
+      become: true
+      environment:
+        PORT: "{{ app_port }}"
