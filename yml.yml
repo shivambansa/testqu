@@ -9,7 +9,7 @@
   tasks:
     - name: Copy application files
       copy:
-        src: /var/lib/jenkins/workspace/question3
+        src: /home/ubuntu/workspace/question3
         dest: /var/www/{{ app_name }}
       become: true
 
